@@ -136,7 +136,7 @@ def recover_trajectory(X_initial: float,
     Returns:
         list of float: optimal controls in forward order [y1, y2, ..., yN]
     """
-    trajectory_rev = []   # will store y_N, y_{N-1}, ..., y_1
+    trajectory = []   
     X_current = X_initial
 
     # Process stages from N down to 1
@@ -146,12 +146,11 @@ def recover_trajectory(X_initial: float,
         interp_Yk = interp1d(X_grid, Yk, kind='linear', fill_value='extrapolate')
         # Interpolate optimal control for current state X_current
         Y_opt = float(interp_Yk(X_current))
-        trajectory_rev.append(Y_opt)
+        trajectory.append(Y_opt)
         # Update resource for the next (previous) stage
         X_current = ALPHA * Y_opt + BETA * (X_current - Y_opt)
 
-    # Reverse to obtain forward order: [y1, y2, ..., yN]
-    return trajectory_rev
+    return trajectory
 
 # Main execution
 def main():
