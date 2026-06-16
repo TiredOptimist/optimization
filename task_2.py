@@ -145,8 +145,7 @@ def recover_trajectory(X_initial: float, X_grid: np.ndarray,
         # Update resource for the next (previous) stage
         X_current = ALPHA * Y_opt + BETA * (X_current - Y_opt)
 
-    # Reverse to get chronological order: y1, y2, ..., yN
-    return trajectory[::-1]
+    return trajectory
 
 # Main execution
 if __name__ == "__main__":
